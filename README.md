@@ -34,7 +34,7 @@ klipper ansible_ssh_host=192.168.1.146 ansible_user=root
 # Provisioning
 To run the script, execute this command
 ```shell
-ansible-playbook playbook.yml --limit klipper -K
+ansible-playbook playbook.yml --limit klipper -K --ask-pass
 ```
 You will be prompted for you remote login password. The remote user MUST have sudo access for this to work.
 
