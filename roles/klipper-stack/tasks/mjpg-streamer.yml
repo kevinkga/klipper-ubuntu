@@ -11,6 +11,13 @@
         - libjpeg8-dev
       state: present
 
+  - name: Stop mjpg-streamer service
+    systemd:
+      name: mjpg-streamer
+      state: stopped
+      enabled: yes
+    ignore_errors: yes
+
   - name: Install service for mjpg-streamer
     template:
       src: files/mjpg-streamer/mjpg-streamer.service.j2
