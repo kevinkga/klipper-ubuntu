@@ -11,7 +11,7 @@ Following that, you can download the script using the following git command:
 git clone https://github.com/kevinkga/klipper-ubuntu.git
 ```
 
-# Discalimer and Caution
+# Disclaimer and Caution
 Do not run this script if your target host already uses Nginx. This setup will overwrite any existing nginx configuration.
 
 In fact, it would be strongly advised to ensure that your remote target host is not running anything else as this script is in a very early stage of development. 
