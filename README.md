@@ -40,3 +40,19 @@ You can ssh to your remote host using your original OS username and password. Ho
 ````shell
 $ sudo su klipper
 ````
+
+# Klipper configuration
+Once everything is installed, please have a look at ```/home/klipper/klipper_config/printer.cfg``` and add your own printer parameters for it.
+
+Example printers configurations can be found in ```/home/klipper/klipper/config/```
+
+Once changed, issue the following command to restart Klipper:
+```shell
+sudo service klipper restart
+```
+
+Alternatively you can use the  Fluid web interface to restart Klipper
+
+Author Information
+------------------
+Developed by Kevin Aubeelack (kevin@ubiclouds.com)

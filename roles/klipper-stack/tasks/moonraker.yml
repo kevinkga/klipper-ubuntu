@@ -36,7 +36,7 @@
 
   - name: "Clone Moonraker repo"
     git:
-      repo: "https://github.com/FrYakaTKoP/moonraker.git"
+      repo: "{{ moonraker_git_url }}"
       dest: "{{ moonraker_src_dir }}"
       accept_hostkey: yes
     become_user: "{{ klipper_user }}"
