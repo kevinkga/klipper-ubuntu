@@ -1,0 +1,16 @@
+#Systemd service file for moonraker
+[Unit]
+Description=API Server for Klipper
+After=network.target
+
+[Install]
+WantedBy=multi-user.target
+
+[Service]
+Type=simple
+User={{ klipper_user }}
+RemainAfterExit=yes
+WorkingDirectory={{ moonraker_src_dir }}
+ExecStart={{ moonraker_launch_cmd }} -c {{ moonraker_config_path }} -l {{ moonraker_log_path }}
+Restart=always
+RestartSec=10

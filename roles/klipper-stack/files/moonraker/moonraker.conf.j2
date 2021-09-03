@@ -1,0 +1,67 @@
+# Sample Moonraker Configuration File
+
+[server]
+# Bind server defaults of 0.0.0.0, port 7125
+enable_debug_logging: True
+config_path: {{ klipper_config_dir }}
+
+[authorization]
+enabled: True
+forced_logins: true
+# trusted_clients:
+# Enter your client IP here or range here
+# 192.168.1.0/24
+#cors_domains:
+# Allow CORS requests for Fluidd
+# http://app.fluidd.xyz
+
+# Enable Octoprint compatibility for Slicer uploads
+# Supports Cura, Slic3r, and Slic3r dervivatives
+# (PrusaSlicer, SuperSlicer)
+[octoprint_compat]
+
+[history]
+
+[update_manager]
+enable_auto_refresh: True
+
+[update_manager client fluidd]
+type: web
+repo: cadriel/fluidd
+path: {{ fluidd_assets_path }}
+
+[timelapse]
+enabled: True
+##   If this set to False the Gcode macros are ignored and
+##   the autorender is disabled at the end of the print.
+##   The idea is to disable the plugin by default and only activate
+##   it during runtime via the http endpoint if a timelapse is desired.
+autorender: True
+##   If this is set to False, the autorender is disabled at the end of the print.
+constant_rate_factor: 10
+##   The range of the CRF scale is 0–51, where 0 is lossless,
+##   23 is the default, and 51 is worst quality possible.
+##   A lower value generally leads to higher quality, and a
+##   subjectively sane range is 17–28.
+##   more info: https://trac.ffmpeg.org/wiki/Encode/H.264
+output_framerate: 30
+##   Output framerate of the generated video
+output_path: {{ klipper_user_home }}/timelapse/
+##   Path where the generated video will be saved
+frame_path: /tmp/timelapse/
+##   Path where the temporary frames are saved
+#time_format_code: %Y%m%d_%H%M
+##   Manipulates datetime format of the output filename
+##   see: https://docs.python.org/3/library/datetime.html#strftime-and-strptime-format-codes
+snapshoturl: http://localhost:8080/?action=snapshot
+##   url to your webcamstream
+pixelformat: yuv420p
+##   set pixelformat for output video
+##   default to yuv420p because eg. yuvj422p will not play on
+##   on most smartphones or older media players
+#extraoutputparams:
+##   here you can extra output parameters to FFMPEG
+##   further info: https://ffmpeg.org/ffmpeg.html
+##   eg rotate video by 180° "-vf transpose=2,transpose=2"
+##   or repeat last frame for 5 seconds:
+##   -filter_complex "[0]trim=0:5[hold];[0][hold]concat[extended];[extended][0]overlay"

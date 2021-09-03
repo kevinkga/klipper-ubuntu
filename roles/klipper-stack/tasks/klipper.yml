@@ -1,0 +1,91 @@
+  - name: Add Klipper user
+    user:
+      name: "{{  klipper_user }}"
+      shell: /bin/bash
+      groups:
+      - dialout
+      - sudo
+      - video
+      - www-data
+      append: yes
+
+  - name: "Update package repo"
+    apt:
+      update_cache: yes
+
+  - name: "Setup base packages"
+    apt:
+      name:
+        - virtualenv
+        - python-dev
+        - libffi-dev
+        - build-essential
+        - libncurses-dev
+        - libusb-dev
+        - avrdude
+        - gcc-avr
+        - binutils-avr
+        - avr-libc
+        - stm32flash
+        - dfu-util
+        - libnewlib-arm-none-eabi
+        - gcc-arm-none-eabi
+        - binutils-arm-none-eabi
+        - libusb-dev
+        - sshpass
+        - git
+      state: present
+
+  - name: "Clone Klipper repo"
+    git:
+      repo: "https://github.com/KevinOConnor/klipper"
+      dest: "/home/{{ klipper_user }}/klipper"
+      accept_hostkey: yes
+    become_user: "{{ klipper_user }}"
+
+  - name: "Create python virtual env for Klipper"
+    shell: virtualenv -p python2 {{ klipper_env_dir }}
+    become_user: "{{ klipper_user }}"
+
+  - name: "Install pip requirements for klipper"
+    shell: "{{ klipper_env_dir }}/bin/pip install -r {{ klipper_src_dir }}/scripts/klippy-requirements.txt"
+    become_user: "{{ klipper_user }}"
+
+  - name: Create klipper directories
+    ansible.builtin.file:
+      path: "{{ item }}"
+      state: directory
+      mode: '0755'
+      owner: "{{ klipper_user }}"
+      group: "{{ klipper_user }}"
+    with_items:
+      - "{{ klipper_logs_dir }}"
+      - "{{ klipper_config_dir }}"
+
+  - name: Setup base printer.cfg
+    template:
+      src: files/klipper/printer.cfg.j2
+      dest: "{{ klipper_config_dir }}/printer.cfg"
+      owner: "{{ klipper_user }}"
+      group: "{{ klipper_user }}"
+
+  - name: Copy systemd service file to server
+    template:
+      src: files/klipper/etc/default/klipper.j2
+      dest: /etc/default/klipper
+      owner: root
+      group: root
+
+  - name: Copy systemd service file to server
+    template:
+      src: files/klipper/klipper.service.j2
+      dest: /etc/systemd/system/klipper.service
+      owner: root
+      group: root
+
+  - name: Start Klippy service
+    systemd:
+      name: klipper
+      daemon_reexec: yes
+      state: restarted
+      enabled: yes

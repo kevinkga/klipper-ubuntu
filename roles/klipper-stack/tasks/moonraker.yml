@@ -1,0 +1,85 @@
+  - name: "Update package repo"
+    apt:
+      update_cache: yes
+
+  - name: "Setup Moonraker packages"
+    apt:
+      name:
+        - python3-virtualenv
+        - python3-dev
+        - nginx
+        - libopenjp2-7
+        - python3-libgpiod
+        - liblmdb0
+        - libsodium-dev
+        - zlib1g-dev
+      state: present
+
+  - name: Create Moonraker directories
+    ansible.builtin.file:
+      path: "{{ item }}"
+      state: directory
+      mode: '0755'
+      owner: "{{ klipper_user }}"
+      group: "{{ klipper_user }}"
+    with_items:
+      - "{{ klipper_user_home }}/gcode_files"
+
+  - name: Stop Klipper service
+    systemd:
+      name: moonraker
+      state: stopped
+      enabled: yes
+
+  - name: "Remove moonraker src dir"
+    shell: "rm -rf {{ moonraker_src_dir }}"
+
+  - name: "Clone Moonraker repo"
+    git:
+      repo: "https://github.com/FrYakaTKoP/moonraker.git"
+      dest: "{{ moonraker_src_dir }}"
+      accept_hostkey: yes
+    become_user: "{{ klipper_user }}"
+
+  - name: "Create python virtual env for Moonraker"
+    shell: "virtualenv -p /usr/bin/python3 {{ moonraker_env_dir }}"
+    become_user: "{{ klipper_user }}"
+
+  - name: "Install pip requirements for Moonraker"
+    shell: "{{ moonraker_env_dir }}/bin/pip install -r {{ moonraker_src_dir }}/scripts/moonraker-requirements.txt"
+    become_user: "{{ klipper_user }}"
+
+  - name: Copy systemd service file to server
+    template:
+      src: files/moonraker/moonraker.service.j2
+      dest: /etc/systemd/system/moonraker.service
+      owner: root
+      group: root
+
+  - name: Copy moonraker.conf to {{ moonraker_config_path }}
+    template:
+      src: files/moonraker/moonraker.conf.j2
+      dest: "{{ moonraker_config_path }}"
+      owner: "{{ klipper_user }}"
+      group: "{{ klipper_user }}"
+
+# restart services in correct order
+  - name: Stop Klipper service
+    systemd:
+      name: klipper
+      state: stopped
+      enabled: yes
+
+  - name: Start MoonRaker service
+    systemd:
+      name: moonraker
+      daemon_reexec: yes
+      state: restarted
+      enabled: yes
+
+  - name: Stop Klipper service
+    systemd:
+      name: klipper
+      state: restarted
+      enabled: yes
+

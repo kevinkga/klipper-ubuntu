@@ -1,0 +1,39 @@
+  - name: "Update package repo"
+    apt:
+      update_cache: yes
+
+  - name: "Setup mjpg-streamer packages"
+    apt:
+      name:
+        - build-essential
+        - git
+        - cmake
+        - libjpeg8-dev
+      state: present
+
+  - name: Install service for mjpg-streamer
+    template:
+      src: files/mjpg-streamer/mjpg-streamer.service.j2
+      dest: /etc/systemd/system/mjpg-streamer.service
+      owner: root
+      group: root
+    become: true
+
+  - name: "Clone mjpg-streamer repo"
+    git:
+      repo: "https://github.com/jacksonliam/mjpg-streamer"
+      dest: "{{ mjpg_streamer_src_path }}"
+      accept_hostkey: yes
+    become_user: "{{ klipper_user }}"
+
+  - name: Build package
+    command: make
+    args:
+      chdir: "{{ mjpg_streamer_src_path }}/mjpg-streamer-experimental"
+
+  - name: Start mjpg-streamer service
+    systemd:
+      name: mjpg-streamer
+      daemon_reexec: yes
+      state: restarted
+      enabled: yes

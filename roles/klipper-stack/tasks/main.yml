@@ -1,0 +1,6 @@
+---
+# tasks file for klipper-stack
+- include: klipper.yml
+- include: moonraker.yml
+- include: fluidd.yml
+- include: mjpg-streamer.yml

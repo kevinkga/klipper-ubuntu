@@ -1,0 +1,6 @@
+  - name: "Provision Klipper"
+    hosts: klipper
+#    gather_facts: false
+    become: yes
+    roles:
+      - { role: klipper-stack }

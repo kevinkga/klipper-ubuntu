@@ -1,0 +1,38 @@
+  - name: "Update package repo"
+    apt:
+      update_cache: yes
+
+  - name: "Setup Moonraker packages"
+    apt:
+      name:
+        - nginx
+      state: present
+
+  - name: Create Fluidd assets directory
+    ansible.builtin.file:
+      path: "{{ fluidd_assets_path }}"
+      state: directory
+
+  - name: "Unpack Fluidd v{{ fluidd_version }} build"
+    unarchive:
+      src: "https://github.com/cadriel/fluidd/releases/download/v{{ fluidd_version }}/fluidd.zip"
+      dest: "{{ fluidd_assets_path }}"
+      remote_src: yes
+
+  - name: "Set permissions for checked out assets"
+    shell: "chown -R www-data:www-data {{ fluidd_assets_path }}"
+
+  - name: Create nginx sites-available config
+    template:
+      src: files/fluidd/sites-available/fluidd.j2
+      dest: "{{ nginx_sites_available_path }}/fluidd"
+
+  - name: Symlink sites-available fluidd config to sites-enabled default
+    file:
+      src: "{{ nginx_sites_available_path }}/fluidd"
+      dest: "{{ nginx_sites_enabled_path }}/default"
+
+  - name: Refresh nginx config
+    ansible.builtin.service:
+      name: nginx
+      state: reloaded
