@@ -27,10 +27,9 @@
 
   - name: Stop Klipper service
     systemd:
-      name: moonraker
+      name: klipper
       state: stopped
       enabled: yes
-    ignore_errors: yes
 
   - name: "Remove moonraker src dir"
     shell: "rm -rf {{ moonraker_src_dir }}"
