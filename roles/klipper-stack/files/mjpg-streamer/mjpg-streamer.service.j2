@@ -1,0 +1,9 @@
+[Unit]
+Description=Server for mjpg-streamer
+
+[Service]
+User={{ klipper_user }}
+ExecStart={{ mjpg_streamer_compiled_path }}/mjpg_streamer -o "{{ mjpg_streamer_compiled_path }}/output_http.so -w {{ mjpg_streamer_compiled_path }}/www" -i "{{ mjpg_streamer_compiled_path }}/input_uvc.so -r {{ mjpg_streamer_width }}x{{ mjpg_streamer_height }} -fps {{ mjpg_streamer_fps }} -rot {{ mjpg_streamer_rot }}"
+
+[Install]
+WantedBy=multi-user.target
