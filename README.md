@@ -18,6 +18,12 @@ In fact, it would be strongly advised to ensure that your remote target host is 
 
 The developers of this script will accept no responsability in case of damage and/or loss of data due to using this script.
 
+# Checklist
+Make sure that your target host (the computer on which you want to install Klipper) meets the following requirements:
+- Has Ubuntu 20.x or later installed
+- Has openssh-server installed (e.g. `sudo apt-get install openssh-server`)
+- You already have an admin user on the target host that has sudo privileges.
+
 # Preparation
 - Change the name and/or ip of your target installation host in the `hosts` file
 - Change the name of your remote user from 'root' if necessary
