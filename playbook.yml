@@ -1,5 +1,7 @@
   - name: "Provision Klipper"
     hosts: klipper
+    vars:
+      ansible_python_interpreter: /usr/bin/python3
 #    gather_facts: false
     become: yes
     roles:
