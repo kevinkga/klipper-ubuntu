@@ -17,7 +17,7 @@
     apt:
       name:
         - virtualenv
-        - python-dev
+        - python
         - libffi-dev
         - build-essential
         - libncurses-dev
