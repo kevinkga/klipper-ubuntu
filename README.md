@@ -28,13 +28,13 @@ Make sure that your target host (the computer on which you want to install Klipp
 - Change the name and/or ip of your target installation host in the `hosts` file
 - Change the name of your remote user from 'root' if necessary
 ```
-klipper ansible_ssh_host=192.168.1.146 ansible_user=root
+bumblebee ansible_ssh_host=192.168.1.251 ansible_user=ubuntu
 ```
 
 # Provisioning
 To run the script, execute this command
 ```shell
-ansible-playbook playbook.yml --limit klipper -K --ask-pass
+ansible-playbook playbook.yml -K --ask-pass
 ```
 You will be prompted for you remote login password. The remote user MUST have sudo access for this to work.
 
