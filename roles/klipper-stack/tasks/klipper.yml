@@ -44,7 +44,7 @@
     become_user: "{{ klipper_user }}"
 
   - name: "Create python virtual env for Klipper"
-    shell: virtualenv -p python2 {{ klipper_env_dir }}
+    shell: virtualenv -p python {{ klipper_env_dir }}
     become_user: "{{ klipper_user }}"
 
   - name: "Install pip requirements for klipper"

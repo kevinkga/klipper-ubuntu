@@ -2,10 +2,11 @@
     apt:
       update_cache: yes
 
-  - name: "Setup Moonraker packages"
+  - name: "Setup Fluidd packages"
     apt:
       name:
         - nginx
+        - unzip
       state: present
 
   - name: Create Fluidd assets directory

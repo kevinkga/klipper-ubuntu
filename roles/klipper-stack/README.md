@@ -5,7 +5,7 @@ Installs a full Klipper stack for 3d printers on Ubuntu linux including Klipper,
 
 Requirements
 ------------
-Ther target device for this role has to be a Ubuntu 20.X or later installation.
+Ther target device for this role has to be a Ubuntu 21.X or later installation.
 
 Role Variables
 --------------

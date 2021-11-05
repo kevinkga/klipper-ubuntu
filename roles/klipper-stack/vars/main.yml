@@ -14,7 +14,7 @@ moonraker_config_path: "{{ klipper_config_dir }}/moonraker.conf"
 moonraker_launch_cmd: "{{ moonraker_env_dir }}/bin/python {{ moonraker_src_dir }}/moonraker/moonraker.py"
 moonraker_server_ip: "{{ ansible_ssh_host }}"
 moonraker_server: "{{ moonraker_server_ip }}:7125"
-moonraker_git_url: "https://github.com/FrYakaTKoP/moonraker.git"
+moonraker_git_url: "https://github.com/Arksine/moonraker.git"
 
 nginx_sites_available_path: "/etc/nginx/sites-available"
 nginx_sites_enabled_path: "/etc/nginx/sites-enabled"

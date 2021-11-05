@@ -5,14 +5,22 @@
   - name: "Setup Moonraker packages"
     apt:
       name:
-        - python3-virtualenv
-        - python3-dev
+        - virtualenv
+        - python
         - nginx
-        - libopenjp2-7
         - python3-libgpiod
         - liblmdb0
         - libsodium-dev
         - zlib1g-dev
+        - libcurl4-openssl-dev
+        - libssl-dev
+        - curl
+        - libopenjp2-7
+        - python3-dev
+        - python3-virtualenv
+        - libjpeg-turbo8-dev
+        - libjpeg8-dev
+        - lmdb-doc
       state: present
 
   - name: Create Moonraker directories
@@ -32,21 +40,21 @@
       enabled: yes
 #    ignore_errors: yes
 
-  - name: "Remove moonraker src dir"
+  - name: Remove moonraker src dir
     shell: "rm -rf {{ moonraker_src_dir }}"
 
-  - name: "Clone Moonraker repo"
+  - name: Clone Moonraker repo
     git:
       repo: "{{ moonraker_git_url }}"
       dest: "{{ moonraker_src_dir }}"
       accept_hostkey: yes
     become_user: "{{ klipper_user }}"
 
-  - name: "Create python virtual env for Moonraker"
-    shell: "virtualenv -p /usr/bin/python3 {{ moonraker_env_dir }}"
+  - name: Create python virtual env for Moonraker
+    shell: "virtualenv -p python {{ moonraker_env_dir }}"
     become_user: "{{ klipper_user }}"
 
-  - name: "Install pip requirements for Moonraker"
+  - name: Install pip requirements for Moonraker
     shell: "{{ moonraker_env_dir }}/bin/pip install -r {{ moonraker_src_dir }}/scripts/moonraker-requirements.txt"
     become_user: "{{ klipper_user }}"
 
