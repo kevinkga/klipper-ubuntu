@@ -24,9 +24,10 @@ fluidd_version: "1.16.2"
 
 webcam_server_ip: "{{ ansible_ssh_host }}"
 webcam_server: "{{ moonraker_server_ip }}:8080"
+mjpg_streamer_git_url: "https://github.com/jacksonliam/mjpg-streamer"
 mjpg_streamer_src_path: "{{ klipper_user_home }}/mjpg-streamer"
 mjpg_streamer_compiled_path: "{{ mjpg_streamer_src_path }}/mjpg-streamer-experimental"
 mjpg_streamer_width: 1080
 mjpg_streamer_height: 720
 mjpg_streamer_fps: 60
-mjpg_streamer_rot: 270
+mjpg_streamer_rot: 0

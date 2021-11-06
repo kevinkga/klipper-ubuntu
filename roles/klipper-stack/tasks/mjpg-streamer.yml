@@ -28,7 +28,7 @@
 
   - name: "Clone mjpg-streamer repo"
     git:
-      repo: "https://github.com/jacksonliam/mjpg-streamer"
+      repo: "{{ mjpg_streamer_git_url }}"
       dest: "{{ mjpg_streamer_src_path }}"
       accept_hostkey: yes
     become_user: "{{ klipper_user }}"
