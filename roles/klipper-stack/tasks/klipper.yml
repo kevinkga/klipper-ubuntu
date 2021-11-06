@@ -17,7 +17,7 @@
     apt:
       name:
         - virtualenv
-        - linux-modules-extra-raspi
+#        - linux-modules-extra-raspi
         - python3
         - libffi-dev
         - build-essential
