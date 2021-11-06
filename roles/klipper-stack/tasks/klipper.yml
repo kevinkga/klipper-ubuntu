@@ -17,8 +17,8 @@
     apt:
       name:
         - virtualenv
-#        - linux-modules-extra-raspi this is only required in 20.10
-        - python
+        - linux-modules-extra-raspi
+        - python3
         - libffi-dev
         - build-essential
         - libncurses-dev

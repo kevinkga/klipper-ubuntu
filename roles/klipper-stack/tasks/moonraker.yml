@@ -6,7 +6,7 @@
     apt:
       name:
         - virtualenv
-        - python
+        - python3
         - nginx
         - python3-libgpiod
         - liblmdb0
