@@ -1,13 +1,14 @@
-  - name: "Provision Klipper"
-    hosts: all
-    vars:
-      ansible_python_interpreter: /usr/bin/python3
-      mjpg_streamer_width: 640
-      mjpg_streamer_height: 480
-      mjpg_streamer_fps: 60
-      mjpg_streamer_rot: 90
+- name: "Provision Klipper"
+  hosts: all
+  vars:
+    ansible_python_interpreter: /usr/bin/python3
 
-    #    gather_facts: false
-    become: yes
-    roles:
-      - { role: klipper-stack }
+  #    gather_facts: false
+  become: yes
+  roles:
+    - { role: klipper-stack,
+        mjpg_streamer_width: 640,
+        mjpg_streamer_height: 480,
+        mjpg_streamer_fps: 60,
+        mjpg_streamer_rot: 90
+    }
