@@ -8,7 +8,7 @@
         - build-essential
         - git
         - cmake
-        - libjpeg8-dev
+        - libjpeg-dev
       state: present
 
   - name: Stop mjpg-streamer service
