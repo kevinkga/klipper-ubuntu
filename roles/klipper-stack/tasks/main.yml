@@ -4,3 +4,4 @@
 - include: moonraker.yml
 - include: fluidd.yml
 - include: mjpg-streamer.yml
+- include: klipperscreen.yml

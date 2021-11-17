@@ -1,1 +1,1 @@
-bumblebee ansible_ssh_host=192.168.1.251 ansible_user=ubuntu
+bb ansible_ssh_host=192.168.1.124 ansible_user=pi

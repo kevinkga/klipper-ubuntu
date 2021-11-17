@@ -7,6 +7,7 @@
       - sudo
       - video
       - www-data
+      - tty
       append: yes
 
   - name: "Update package repo"
@@ -70,14 +71,14 @@
       owner: "{{ klipper_user }}"
       group: "{{ klipper_user }}"
 
-  - name: Copy systemd service file to server
+  - name: Install systemd service
     template:
       src: files/klipper/etc/default/klipper.j2
       dest: /etc/default/klipper
       owner: root
       group: root
 
-  - name: Copy systemd service file to server
+  - name: Install systemd service
     template:
       src: files/klipper/klipper.service.j2
       dest: /etc/systemd/system/klipper.service

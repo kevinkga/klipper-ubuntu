@@ -7,6 +7,10 @@ klipper_src_dir: "{{ klipper_user_home }}/klipper"
 klipper_config_dir: "{{ klipper_user_home }}/klipper_config"
 klipper_env_dir: "{{ klipper_user_home }}/klipper-env"
 
+klipperscreen_git_url: "https://github.com/jordanruthe/KlipperScreen.git"
+klipperscreen_src_dir: "{{ klipper_user_home }}/klipperscreen"
+klipperscreen_env_dir: "{{ klipper_user_home }}/klipperscreen-env"
+
 moonraker_log_path: "/tmp/moonraker.log"
 moonraker_src_dir: "{{ klipper_user_home }}/moonraker"
 moonraker_env_dir: "{{ klipper_user_home }}/moonraker-env"

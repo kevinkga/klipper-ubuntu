@@ -1,0 +1,15 @@
+[Unit]
+Description=KlipperScreen
+After=moonraker.service
+StartLimitIntervalSec=0
+
+[Service]
+Type=simple
+Restart=always
+RestartSec=1
+User={{ klipper_user }}
+WorkingDirectory={{ klipperscreen_src_dir }}
+ExecStart=/usr/bin/xinit {{ klipperscreen_env_dir }}/bin/python {{ klipperscreen_src_dir }}/screen.py
+
+[Install]
+WantedBy=multi-user.target
