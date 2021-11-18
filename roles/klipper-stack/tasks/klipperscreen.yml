@@ -35,7 +35,12 @@
   become_user: "{{ klipper_user }}"
 
 - name: "Install pip requirements for KlipperScreen"
-  shell: "{{ klipperscreen_env_dir }}/bin/pip install -r {{ klipperscreen_src_dir }}/scripts/KlipperScreen-requirements.txt; {{ klipperscreen_src_dir }}/bin/vext -e"
+  shell: "{{ klipperscreen_env_dir }}/bin/pip install -r {{ klipperscreen_src_dir }}/scripts/KlipperScreen-requirements.txt"
+  become_user: "{{ klipper_user }}"
+  ignore_errors: yes
+
+- name: "Apply vext -e to the klipperscreen environemnt"
+  shell: "{{ klipperscreen_env_dir }}/bin/vext -e"
   become_user: "{{ klipper_user }}"
   ignore_errors: yes
 
