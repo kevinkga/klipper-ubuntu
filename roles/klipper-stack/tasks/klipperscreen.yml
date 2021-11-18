@@ -31,12 +31,13 @@
   become_user: "{{ klipper_user }}"
 
 - name: "Create python virtual env for KlipperScreen"
-  shell: virtualenv -p python {{ klipperscreen_env_dir }}
+  shell: virtualenv -p /usr/bin/python3 {{ klipperscreen_env_dir }}
   become_user: "{{ klipper_user }}"
 
 - name: "Install pip requirements for KlipperScreen"
-  shell: "{{ klipperscreen_env_dir }}/bin/pip install -r {{ klipperscreen_src_dir }}/scripts/KlipperScreen-requirements.txt"
+  shell: "{{ klipperscreen_env_dir }}/bin/pip install -r {{ klipperscreen_src_dir }}/scripts/KlipperScreen-requirements.txt; {{ klipperscreen_src_dir }}/bin/vext -e"
   become_user: "{{ klipper_user }}"
+  ignore_errors: yes
 
 - name: Install systemd service
   template:
