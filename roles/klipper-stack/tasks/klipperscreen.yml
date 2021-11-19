@@ -42,7 +42,7 @@
 
 - name: "Install pip vext vext.gi for KlipperScreen"
   shell: |
-    {{ klipperscreen_env_dir }}/bin/pip install --no-use-wheel vext vext.gi
+    {{ klipperscreen_env_dir }}/bin/pip install vext vext.gi
   become_user: "{{ klipper_user }}"
   ignore_errors: yes
 
