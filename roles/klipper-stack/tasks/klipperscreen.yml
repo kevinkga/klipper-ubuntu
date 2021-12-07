@@ -12,16 +12,24 @@
       - x11-xserver-utils
       - libopenjp2-7
       - python3-distutils
-      - python3-gi
-      - python3-gi-cairo
       - python3-virtualenv
-      - gir1.2-gtk-3.0
       - virtualenv
       - matchbox-keyboard
       - wireless-tools
       - libatlas-base-dev
       - fonts-freefont-ttf
+      - libgirepository1.0-dev
+      - gcc
+      - libcairo2-dev
+      - pkg-config
+      - python3-dev
+      - gir1.2-gtk-3.0
+      # the following are custom not in the repo
       - xserver-xorg-video-fbdev
+      - python3-gi
+      - python3-gi-cairo
+      - libglib2.0-dev
+#      - libgtk-3-dev
     state: present
 
 - name: Clone KlipperScreen repo
